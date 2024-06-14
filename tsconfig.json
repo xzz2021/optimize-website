@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "es2015"],
+    "target": "es6",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "module": "es6",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "types": ["chrome"],
+  "include": ["src/**/*", "**/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts", "public", "xzz2021", "webpack.*.js", "eslint.config.mjs"]
+}
