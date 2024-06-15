@@ -22,7 +22,7 @@ export const chromeStorage = {
         reject("获取失败:参数必须是字符串或者数组,且不能为空")
       }
       if (typeof str == "string") {
-        chrome.storage.local.get([str], res => {
+        chrome.storage.local.get(str, res => {
           const r = res[str]
           resolve(r)
         })

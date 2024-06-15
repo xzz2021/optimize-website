@@ -1,10 +1,11 @@
-import { isOpen, initStorage } from "@/utils/checkPlatform"
+import { isOpen, implementRmNode } from "@/utils/platformOperation"
 import { createRoot } from "react-dom/client"
 import { platFormObj } from "@/pages/index"
+import { chromeStorage } from "./utils/chromeStorage"
 
 const startGenerate = async () => {
   // 初始化平台开关
-  initStorage()
+  // initStorage()
   //  决定是否生成页面进行挂载
   // 检查当前网页 获取平台
   let platform
@@ -23,16 +24,20 @@ const startGenerate = async () => {
     }
     //  检查平台开关是否启用
     const res = await isOpen(platform)
-    if (!res) {
+    if (res) {
       //  如果是开启状态  则生成页面
       const myapp = platFormObj[platform]()
       const uuid = Math.random().toString(12).slice(-8)
       createMountPage(myapp, platform + uuid)
+
+      //  直接实施 rmNode
+      implementRmNode(platform)
     }
   }
 }
 
 startGenerate()
+
 const createMountPage = (myapp: JSX.Element, id: string) => {
   const el = document.querySelector("body")
   if (el) {
@@ -41,3 +46,9 @@ const createMountPage = (myapp: JSX.Element, id: string) => {
     root.render(myapp)
   }
 }
+
+const getStorage = async () => {
+  const ee = await chromeStorage.get("zhihu")
+  console.log("🚀 ~ file: content.ts:48 ~ ee:", ee)
+}
+// getStorage()
