@@ -1,8 +1,8 @@
-import { isOpen, implementRmNode } from "@/utils/platformOperation"
+import { isOpen, getPlatformArr } from "@/utils/platformOperation"
 import { createRoot } from "react-dom/client"
 import { platFormObj } from "@/pages/index"
 import { chromeStorage } from "./utils/chromeStorage"
-
+// initStorage()
 const startGenerate = async () => {
   // 初始化平台开关
   // initStorage()
@@ -31,7 +31,7 @@ const startGenerate = async () => {
       createMountPage(myapp, platform + uuid)
 
       //  直接实施 rmNode
-      implementRmNode(platform)
+      // implementRmNode(platform)
     }
   }
 }
@@ -48,7 +48,9 @@ const createMountPage = (myapp: JSX.Element, id: string) => {
 }
 
 const getStorage = async () => {
-  const ee = await chromeStorage.get("zhihu")
+  const ee = await chromeStorage.get("platformNameArr")
   console.log("🚀 ~ file: content.ts:48 ~ ee:", ee)
 }
-// getStorage()
+getStorage()
+
+getPlatformArr()

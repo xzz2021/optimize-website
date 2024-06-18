@@ -16,14 +16,24 @@ export const chromeStorage = {
     })
   },
 
-  get(str: string) {
+  get(keys: string | string[]) {
     return new Promise((resolve, reject) => {
-      if (str.length < 1 || str == "") {
+      if (keys.length < 1 || keys == "") {
         reject("获取失败:参数必须是字符串或者数组,且不能为空")
       }
-      if (typeof str == "string") {
-        chrome.storage.local.get(str, res => {
-          const r = res[str]
+      if (typeof keys == "string") {
+        chrome.storage.local.get(keys, res => {
+          // console.log("🚀 ~ file: chromeStorage.ts:31 ~ res:", res)
+          const r = res[keys]
+          resolve(r)
+        })
+      } else {
+        // 如果查询的是数组  则返回包含所有键名的对象  的数组
+        chrome.storage.local.get(keys, res => {
+          const r: any[] = []
+          keys.map(key => {
+            r.push({ ...res[key], key })
+          })
           resolve(r)
         })
       }
