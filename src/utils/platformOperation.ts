@@ -30,11 +30,6 @@ export const toggle = async (platform: string) => {
   }
 }
 
-const getPlatform = async (platform: string) => {
-  const rawPlatform: platForm = (await chromeStorage.get(platform)) as platForm
-  return rawPlatform
-}
-
 //  获取汇总平台信息
 export const getPlatformNameArr = async () => {
   const platformNameArr = ((await chromeStorage.get("platformNameArr")) as string[]) || []
@@ -42,11 +37,15 @@ export const getPlatformNameArr = async () => {
 }
 
 //  分别获取所有平台信息 生成数组
-
 export const getPlatformArr = async () => {
   const platformNameArr = await getPlatformNameArr()
   const rawPlatform = (await chromeStorage.get(platformNameArr)) as platForm[]
-  console.log("🚀 ~ file: platformOperation.ts:48 ~ rawPlatform:", rawPlatform)
+  return rawPlatform
+}
+
+//  获取单个平台
+const getPlatform = async (platform: string) => {
+  const rawPlatform: platForm = (await chromeStorage.get(platform)) as platForm
   return rawPlatform
 }
 
@@ -69,10 +68,10 @@ export const addPlatform = async (url: string) => {
   }
 }
 
-const addRmNode = async (platform: string, rmNode: string) => {
+export const addRmNode = async (platform: string, rmNode: string) => {
   const rawPlatform: platForm = await getPlatform(platform)
   if (!rawPlatform) return
-  rawPlatform.rmNode = [...new Set([...rawPlatform.rmNode, `.${rmNode}`, `#${rmNode}`])]
+  rawPlatform.rmNode = [...new Set([...rawPlatform.rmNode, rmNode])]
   chromeStorage.set({ [platform]: rawPlatform })
 }
 
@@ -96,7 +95,7 @@ export const initStorage = async () => {
   const rawPlatformMap = (await chromeStorage.get("platformMap")) || {}
   const allPlatform = { ...platformMap, ...rawPlatformMap }
   //   设置所有平台的相关信息
-  chromeStorage.set({ ...allPlatform })
+  chromeStorage.set({ platformMap: allPlatform })
   // 获取所有平台 英文 名称组成的数组
   //  ["知乎", "哔哩哔哩", "CSDN", "掘金", "简书"]
   const platformNameArr = Object.keys(allPlatform).map(item => item)
