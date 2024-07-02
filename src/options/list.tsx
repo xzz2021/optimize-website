@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react"
 import { Collapse, Flex, Tag, Button } from "antd"
 import emitter from "@/utils/eventBus"
 import { getPlatformArr, deleteRmNode } from "@/utils/platformOperation"
-import type { platForm } from "@/utils/platformOperation"
+import { platForm } from "@/utils/platformOperation"
 import ModalApp from "./model"
-
-const List = () => {
+import { exportJson } from "@/utils/tools"
+import UploadJson from "./uploadJson"
+const App = () => {
   const [allPlatform, setAllPlatform] = useState<platForm[]>([])
   useEffect(() => {
     const fetchData = async () => {
@@ -77,15 +78,27 @@ const List = () => {
     return newItem
   })
 
-  const ActiveKeyArr = allPlatform.map(item => item.key)
+  const exportFile = () => {
+    exportJson(allPlatform)
+  }
 
-  console.log("🚀 ~ file: list.tsx:81 ~ ActiveKeyArr:", ActiveKeyArr)
+  // const importFile = () => {
+  //   // combineStorage(allPlatform)
+  // }
+
+  const ActiveKeyArr = allPlatform.map(item => item.key)
 
   return (
     <>
-      <Button type="primary" onClick={() => showModal()}>
-        添加元素
-      </Button>
+      <div style={{ textAlign: "center", margin: "5px", display: "flex", justifyContent: "space-between" }}>
+        <Button type="primary" onClick={() => showModal()}>
+          添加元素
+        </Button>
+        <Button type="primary" onClick={exportFile}>
+          一键导出备份
+        </Button>
+        <UploadJson />
+      </div>
       <div style={{ textAlign: "center", margin: "10px 0" }}>各平台设置参数</div>
       <Collapse items={newData} defaultActiveKey={ActiveKeyArr} />
       <ModalApp />
@@ -93,4 +106,4 @@ const List = () => {
   )
 }
 
-export default List
+export default App

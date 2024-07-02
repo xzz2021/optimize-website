@@ -11,8 +11,6 @@ export const SearchBar = () => {
   }
 
   const handleButtonClick = () => {
-    console.log("🚀 ~ file: index.tsx:45 ~ rmNode:", inputValue)
-    // console.log("🚀 ~ file: search.tsx:18 ~ platform:", paltform)
     // 执行添加操作
     addRmNode(platform, elementType + inputValue)
     // 清空输入框
