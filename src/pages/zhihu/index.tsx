@@ -1,10 +1,7 @@
 import React from "react"
-import { useEffect } from "react"
+import { removeLimit } from "./fns"
 export default function Zhihu() {
-  const aa = () => {
-    // console.log("🚀 ~ file: index.tsx:11 ~ aa:")
-  }
-  aa()
+  removeLimit()
 
   return (
     <div>

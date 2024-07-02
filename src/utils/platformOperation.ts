@@ -68,6 +68,7 @@ export const addPlatform = async (url: string) => {
   }
 }
 
+//  添加单个节点
 export const addRmNode = async (platform: string, rmNode: string) => {
   const rawPlatform: platForm = await getPlatform(platform)
   if (!rawPlatform) return
@@ -75,6 +76,7 @@ export const addRmNode = async (platform: string, rmNode: string) => {
   chromeStorage.set({ [platform]: rawPlatform })
 }
 
+//  删除单个节点
 export const deleteRmNode = async (platform: string, rmNode: string) => {
   const rawPlatform: platForm = await getPlatform(platform)
   if (!rawPlatform) return
@@ -91,6 +93,7 @@ const platformMap = {
   jianshu: { name: "简书", rmNode: [], status: true },
 }
 
+//  初始化 所有平台  节点 信息
 export const initStorage = async () => {
   const rawPlatformMap = (await chromeStorage.get("platformMap")) || {}
   const allPlatform = { ...platformMap, ...rawPlatformMap }
@@ -100,6 +103,15 @@ export const initStorage = async () => {
   //  ["知乎", "哔哩哔哩", "CSDN", "掘金", "简书"]
   const platformNameArr = Object.keys(allPlatform).map(item => item)
   chromeStorage.set({ platformNameArr })
+}
+
+//  合并所有平台信息
+export const combineStorage = async (jsonMap: any) => {
+  jsonMap.map(async (item: any) => {
+    const curPlatform = await getPlatform(item.key)
+    curPlatform.rmNode = [...new Set([...curPlatform.rmNode, ...item.rmNode])]
+    chromeStorage.set({ [item.key]: curPlatform })
+  })
 }
 
 export const implementRmNode = async (platform: string) => {

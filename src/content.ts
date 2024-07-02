@@ -1,8 +1,12 @@
-import { isOpen, getPlatformArr } from "@/utils/platformOperation"
+import { isOpen, getPlatformArr, implementRmNode } from "@/utils/platformOperation"
 import { createRoot } from "react-dom/client"
 import { platFormObj } from "@/pages/index"
 import { chromeStorage } from "./utils/chromeStorage"
+import { removeRedirect } from "./utils/dom"
 // initStorage()
+
+const linkArr = ["//link.zhihu.com/?target=https%3A"]
+
 const startGenerate = async () => {
   // 初始化平台开关
   // initStorage()
@@ -31,7 +35,9 @@ const startGenerate = async () => {
       createMountPage(myapp, platform + uuid)
 
       //  直接实施 rmNode
-      // implementRmNode(platform)
+      implementRmNode(platform)
+      //  移除外链 中转 跳转
+      removeRedirect(linkArr)
     }
   }
 }
