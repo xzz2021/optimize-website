@@ -1,6 +1,6 @@
 import React from "react"
 import { allowCopy } from "./fns"
-export default function Zhihu() {
+export default function Csdn() {
   allowCopy()
   return (
     <div>
