@@ -13,8 +13,6 @@ export const rmNode2Style = (rmNode: string[]) => {
   appendStyle(style)
 }
 
-// https://link.zhihu.com/?target=https%3A//github.com/livoras/blog/issues/13
-//link.zhihu.com/?target=http%3A
 export const removeRedirect = (linkArr: string[]) => {
   $("a").each(function () {
     let rawUrl = $(this).attr("href")
@@ -22,7 +20,9 @@ export const removeRedirect = (linkArr: string[]) => {
     for (let redirectUrl of linkArr) {
       if (rawUrl.includes(redirectUrl)) {
         const newUrl = rawUrl.replace(redirectUrl, "")
-        $(this).attr("href", newUrl)
+        // 掘金会转义链接  需解码
+        const trueUrl = decodeURIComponent(newUrl)
+        $(this).attr("href", trueUrl)
         break // 找到并替换后跳出内层循环
       }
     }

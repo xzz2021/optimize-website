@@ -31,3 +31,5 @@ export const exportJson = (data: object) => {
   document.body.removeChild(a) // 点击后移除链接
   URL.revokeObjectURL(url) // 释放 URL 对象
 }
+
+export const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time * 1000))
