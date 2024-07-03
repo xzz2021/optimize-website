@@ -33,3 +33,14 @@ export const exportJson = (data: object) => {
 }
 
 export const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time * 1000))
+
+export const getPlatformNameTool = (url: string) => {
+  const regex = /^(?:https?:\/\/)?(?:www\.)?([^\/:]+)/
+  const match = url.match(regex)
+  if (match) {
+    const urlParts = match[1].split(".")
+    const ll = urlParts.length
+    return ll == 1 ? urlParts[0] : urlParts[ll - 2]
+  }
+  return null
+}
