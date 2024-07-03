@@ -53,19 +53,15 @@ const getPlatform = async (platform: string) => {
  **
  *添加平台
  */
-export const addPlatform = async (url: string) => {
-  const newPlatform = url.match(/www\.(.*?)\.com/)
-  if (newPlatform && newPlatform[1]) {
-    const domainName = newPlatform[1]
-    const rawPlatform: platForm = (await chromeStorage.get(newPlatform[1])) as platForm
-    if (rawPlatform) return
-    //  先存储当前 平台 详细
-    chromeStorage.set({ domainName: { name: domainName, rmNode: [], status: true } })
-    //  再更新所有平台名称数组
-    const platformNameArr = await getPlatformNameArr()
-    platformNameArr.push(domainName)
-    chromeStorage.set(platformNameArr)
-  }
+export const addPlatform = async (newPlatform: string) => {
+  const rawPlatform: platForm = (await chromeStorage.get(newPlatform)) as platForm
+  if (rawPlatform) return
+  //  先存储当前 平台 详细
+  chromeStorage.set({ newPlatform: { name: newPlatform, rmNode: [], status: true } })
+  //  再更新所有平台名称数组
+  const platformNameArr = await getPlatformNameArr()
+  platformNameArr.push(newPlatform)
+  chromeStorage.set(platformNameArr)
 }
 
 //  添加单个节点

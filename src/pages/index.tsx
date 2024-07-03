@@ -3,6 +3,7 @@ import Zhihu from "./zhihu"
 import Bilibili from "./bilibili"
 import Csdn from "./csdn"
 import Juejin from "./juejin"
+import JianShu from "./jianshu"
 
 /*
 React的引入 只在jsx文件中  可以解析
@@ -15,5 +16,11 @@ function Tmp(): React.JSX.Element {
 type PlatFormObj = {
   [key: string]: () => JSX.Element
 }
-export const platFormObj: PlatFormObj = { zhihu: Zhihu, bilibili: Bilibili, csdn: Csdn, juejin: Juejin, tmp: Tmp }
-// export default { zhihu, bilibili }
+export const platFormObj: PlatFormObj = {
+  zhihu: Zhihu,
+  bilibili: Bilibili,
+  csdn: Csdn,
+  juejin: Juejin,
+  jianshu: JianShu,
+  tmp: Tmp,
+}
