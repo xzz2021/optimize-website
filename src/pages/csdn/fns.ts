@@ -40,14 +40,9 @@ const styleCss = `.hljs-button-xzz{
 }`
 appendStyle(styleCss)
 
-interface Element {
-  oncopy: ((this: GlobalEventHandlers, ev: ClipboardEvent) => any) | null
-}
-
 const permitCopy = () => {
-  console.log("🚀 ~ file: fns.ts:55 ~ permitCopy:")
   // 解除页面所有复制限制
-  document.querySelectorAll("*").forEach((item: Element) => {
+  document.querySelectorAll("*").forEach((item: any) => {
     item.oncopy = function (e: ClipboardEvent) {
       e.stopPropagation()
     }
@@ -62,9 +57,9 @@ const unfoldArticle = () => {
 
 //  移除重定向
 const removeRedirect = () => {
-  $("#article_content a").map((index, item) => {
+  $("#article_content a").map((_index, item: any) => {
     if (item.origin != window.location.origin) {
-      item.onclick = event => {
+      item.onclick = (event: { stopPropagation: () => any }) => {
         event.stopPropagation && event.stopPropagation()
         item.setAttribute("target", "_blank")
       }
