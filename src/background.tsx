@@ -1,4 +1,5 @@
 import { initStorage } from "@/utils/platformOperation"
+import { DEBUG } from "globals"
 
 initStorage()
 

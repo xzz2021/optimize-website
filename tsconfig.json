@@ -16,6 +16,6 @@
     }
   },
   "types": ["chrome"],
-  "include": ["src/**/*", "**/**/*"],
+  "include": ["src/**/*", "**/**/*", "globals.d.ts"],
   "exclude": ["node_modules", "**/*.spec.ts", "public", "xzz2021", "webpack.*.js", "eslint.config.mjs"]
 }
