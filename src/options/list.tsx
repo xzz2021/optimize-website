@@ -1,30 +1,13 @@
-import React, { useState, useEffect } from "react"
-import { Collapse, Flex, Tag, Button } from "antd"
-import emitter from "@/utils/eventBus"
-import { getPlatformArr, deleteRmNode } from "@/utils/platformOperation"
+import React from "react"
+import { Collapse, Flex, Tag } from "antd"
+import { deleteRmNode } from "@/utils/platformOperation"
 import { platForm } from "@/utils/platformOperation"
-import ModalApp from "./model"
-import { exportJson } from "@/utils/tools"
-import UploadJson from "./uploadJson"
-const App = () => {
-  const [allPlatform, setAllPlatform] = useState<platForm[]>([])
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const rawData = await getPlatformArr()
-        setAllPlatform(rawData)
-      } catch (error) {
-        console.error("Error fetching data:", error)
-      } finally {
-      }
-    }
 
-    fetchData()
-  }, [])
+interface PropsType {
+  allPlatform: platForm[]
+}
 
-  const showModal = () => {
-    emitter.emit("openModal" as any)
-  }
+const List: React.FC<PropsType> = ({ allPlatform }) => {
   // const allPlatform = [
   //   {
   //     name: "知乎",
@@ -78,32 +61,14 @@ const App = () => {
     return newItem
   })
 
-  const exportFile = () => {
-    exportJson(allPlatform)
-  }
-
-  // const importFile = () => {
-  //   // combineStorage(allPlatform)
-  // }
-
   const ActiveKeyArr = allPlatform.map(item => item.key)
 
   return (
     <>
-      <div style={{ textAlign: "center", margin: "5px", display: "flex", justifyContent: "space-between" }}>
-        <Button type="primary" onClick={() => showModal()}>
-          添加元素
-        </Button>
-        <Button type="primary" onClick={exportFile}>
-          一键导出备份
-        </Button>
-        <UploadJson />
-      </div>
-      <div style={{ textAlign: "center", margin: "10px 0" }}>各平台设置参数</div>
+      <div style={{ margin: "10px 0" }}>各平台屏蔽元素</div>
       <Collapse items={newData} defaultActiveKey={ActiveKeyArr} />
-      <ModalApp />
     </>
   )
 }
 
-export default App
+export default List
