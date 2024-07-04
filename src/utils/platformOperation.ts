@@ -40,6 +40,7 @@ export const getPlatformNameArr = async () => {
 export const getPlatformArr = async () => {
   const platformNameArr = await getPlatformNameArr()
   const rawPlatform = (await chromeStorage.get(platformNameArr)) as platForm[]
+  console.log("🚀 ~ file: platformOperation.ts:43 ~ rawPlatform:", rawPlatform)
   return rawPlatform || []
 }
 
@@ -113,31 +114,6 @@ export const initStorage = async () => {
   platformMap.map(async item => {
     chromeStorage.set({ [item.key]: item })
   })
-}
-
-//  合并所有平台信息
-// export const combineStorage = async (jsonMap: any) => {
-//   jsonMap.map(async (item: any) => {
-//     let curPlatform = await getPlatform(item.key)
-//     // if (Object.keys(curPlatform).length === 0) {
-//     if (JSON.stringify(curPlatform) === "{}") {
-//       curPlatform = item
-//       addPlatformName(item.key)
-//     } else {
-//       curPlatform.rmNode = [...new Set([...curPlatform.rmNode, ...item.rmNode])]
-//     }
-//     chromeStorage.set({ [item.key]: curPlatform })
-//   })
-// }
-
-const sortObjectKeys = (obj: platForm) => {
-  const sortedObj = {
-    name: obj.name,
-    rmNode: obj.rmNode,
-    status: obj.status,
-    key: obj.key,
-  }
-  return sortedObj
 }
 
 export const combineStorage = async (jsonMap: platForm[]) => {

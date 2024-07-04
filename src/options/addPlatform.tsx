@@ -84,11 +84,7 @@ const AddPlatform = () => {
         </div>
         <div>添加示例: bilibili 或 zhihu.cn 或 www.jianshu.com </div>
         <Space.Compact style={{ width: 400, margin: "10px 0" }}>
-          <Input
-            placeholder="输入你要添加的平台url链接或英文域名"
-            value={inputValue}
-            onChange={e => handleInputChange(e.target.value)}
-          />
+          <Input placeholder="输入平台url链接或英文域名" value={inputValue} onChange={e => handleInputChange(e.target.value)} />
           <Input placeholder="输入中文名称" value={inputCnNameValue} onChange={e => handleInputChangeCn(e.target.value)} />
           <Button type="primary" onClick={addItem}>
             添加
