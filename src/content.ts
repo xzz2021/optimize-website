@@ -1,18 +1,11 @@
-import { isOpen, getPlatformArr, implementRmNode } from "@/utils/platformOperation"
-import { createRoot } from "react-dom/client"
-import { platFormObj } from "@/pages/index"
-import { removeRedirect } from "./utils/dom"
+import { isOpen } from "@/utils/platformOperation"
 import { DEBUG } from "globals"
 import { getPlatformNameTool } from "@/utils/tools"
-
-const linkArr = ["https://link.zhihu.com/?target=", "https://link.juejin.cn?target=", "https://links.jianshu.com/go?to="]
+import { commonFn } from "./utils/common"
 
 const startGenerate = async () => {
-  // 初始化平台开关
-  // initStorage()
-  //  决定是否生成页面进行挂载
-  // 检查当前网页 获取平台
-  //  "juejin.cn"   "www.zhihu.com"
+  // 初始化平台开关 //  决定是否生成页面进行挂载
+  // 检查当前网页 获取平台 //  "juejin.cn"   "www.zhihu.com"
   const platform = getPlatformNameTool(location.host)
   if (platform) {
     const res = await isOpen(platform)
@@ -24,29 +17,10 @@ const startGenerate = async () => {
         const { createWsConnect } = require("ws-reload-plugin")
         createWsConnect({})
       }
-      //  如果是开启状态  则生成页面
-      const Myapp = platFormObj[platform] || platFormObj["tmp"]
-
-      const uuid = Math.random().toString(12).slice(-8)
-      createMountPage(Myapp, platform + uuid)
-
-      //  直接实施 rmNode
-      implementRmNode(platform)
-      //  移除外链 中转 跳转
-      removeRedirect(linkArr)
+      //  各个平台的公共函数
+      commonFn(platform)
     }
   }
 }
 
 startGenerate()
-
-const createMountPage = (Myapp: () => JSX.Element, id: string) => {
-  const el = document.querySelector("body")
-  if (el) {
-    el.insertAdjacentHTML("afterbegin", `<div  style="position: fixed;" id="${id}"></div>`)
-    const root = createRoot(document.getElementById(id)!) // 非空断言
-    root.render(Myapp())
-  }
-}
-
-getPlatformArr()

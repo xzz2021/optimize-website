@@ -23,7 +23,7 @@ const XzzPopup = () => {
         <a href={`chrome-extension://${chrome.runtime.id}/options.html`} style={alink} target="_blank" rel="noopener noreferrer">
           选项设置页
         </a>
-        可以自定义添加屏蔽块
+        可以进行自定义设置
       </div>
     </>
   )
