@@ -2,6 +2,7 @@ import React from "react"
 import { Collapse, Flex, Tag } from "antd"
 import { deleteRmNode } from "@/utils/platformOperation"
 import { platForm } from "@/utils/platformOperation"
+import IsEnable from "./isEnable"
 
 interface PropsType {
   allPlatform: platForm[]
@@ -46,16 +47,19 @@ const List: React.FC<PropsType> = ({ allPlatform }) => {
       key: key,
       label: name,
       children: (
-        <Flex gap="4px 0" wrap>
-          {rmNode &&
-            rmNode.map((item2, index2) => {
-              return (
-                <Tag bordered={false} key={index2} color="success" closable onClose={() => deleteRmNode(key, item2)}>
-                  {item2}
-                </Tag>
-              )
-            })}
-        </Flex>
+        <>
+          <IsEnable curPlatform={item} />
+          <Flex gap="4px 0" wrap>
+            {rmNode &&
+              rmNode.map((item2, index2) => {
+                return (
+                  <Tag bordered={false} key={index2} color="success" closable onClose={() => deleteRmNode(key, item2)}>
+                    {item2}
+                  </Tag>
+                )
+              })}
+          </Flex>
+        </>
       ),
     }
     return newItem

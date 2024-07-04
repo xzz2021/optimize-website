@@ -30,6 +30,10 @@ export const toggle = async (platform: string) => {
   }
 }
 
+export const resetPlatform = async (curPlatform: platForm) => {
+  chromeStorage.set({ [curPlatform.key]: curPlatform })
+}
+
 //  获取汇总平台信息
 export const getPlatformNameArr = async () => {
   const platformNameArr = ((await chromeStorage.get("platformNameArr")) as string[]) || []
