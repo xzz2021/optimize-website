@@ -11,6 +11,7 @@ const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
 const proconfig = {
   mode: "production",
   optimization: {
+    // minimize: true,
     usedExports: true,
     // 优化配置项  实现前提是 ES Modules-------------需修改babel-loader---------
     // concatenateModules: true,    // 尽可能合并每一个模块到一个函数中  减少体积和运行效率
@@ -53,19 +54,23 @@ const proconfig = {
     }),
     new BundleAnalyzerPlugin(),
   ],
-  module: {
-    rules: [
-      // {
-      //   oneOf: [
-      //     //
-      //     {
-      //       test: /\.css$/i,
-      //       use: [MiniCssExtractPlugin.loader, "css-loader"], //实现样式代码整合在单独一个文件里, 可以取代style-loader
-      //     },
-      //   ],
-      // },
-    ],
-  },
+  // module: {
+  //   rules: [
+  //     {
+  //       oneOf: [
+  //         //
+  //         {
+  //           test: /\.css$/i,
+  //           use: [MiniCssExtractPlugin.loader, "css-loader"], //实现样式代码整合在单独一个文件里, 可以取代style-loader
+  //         },
+  //         {
+  //           test: /\.less$/i,
+  //           use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"],
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
   // externals: {}, //在生产模式引入指定模块外链cdn的情况下,忽略指定的模块不进行打包
 }
 

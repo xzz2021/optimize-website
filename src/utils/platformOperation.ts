@@ -108,7 +108,7 @@ const platformMap = [
 ]
 
 //  初始化 所有平台  节点 信息
-export const initStorage = async () => {
+/*#__PURE__*/ export const initStorage = async () => {
   let platformNameArr = await getPlatformNameArr()
   //  如果是[] 则是第一次启动，初始化所有平台信息
   if (platformNameArr.length) return
