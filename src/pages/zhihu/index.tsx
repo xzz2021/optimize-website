@@ -1,7 +1,10 @@
 import React from "react"
-import { removeLimit } from "./fns"
+import { removeLimit, removeLogins, styleCss } from "./fns"
+import { appendStyle } from "@/utils/dom"
 export default function Zhihu() {
   removeLimit()
+  removeLogins()
+  appendStyle(styleCss)
 
   return (
     <div>

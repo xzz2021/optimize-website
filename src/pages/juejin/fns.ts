@@ -24,11 +24,10 @@ export const allowCopy = async () => {
   })
 }
 
-const styleCss = `.code-block-extension-copyCodeBtn-xzz{
+export const styleCss = `.code-block-extension-copyCodeBtn-xzz{
   font-size: 12px;
   margin-left: 10px;
   cursor: pointer;
   color: hsla(0,0%,54.9%,.8);
   transition: color .1s;
 }`
-appendStyle(styleCss)

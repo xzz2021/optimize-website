@@ -25,7 +25,7 @@ export const allowCopy = async () => {
   })
 }
 
-const styleCss = `.hljs-button-xzz{
+export const styleCss = `.hljs-button-xzz{
   position: absolute;
   right: 0px;
   top: 0px;
@@ -38,9 +38,8 @@ const styleCss = `.hljs-button-xzz{
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.05);
 }`
-appendStyle(styleCss)
 
-const permitCopy = () => {
+export const permitCopy = () => {
   // 解除页面所有复制限制
   document.querySelectorAll("*").forEach((item: any) => {
     item.oncopy = function (e: ClipboardEvent) {
@@ -49,14 +48,14 @@ const permitCopy = () => {
   })
 }
 
-const unfoldArticle = () => {
+export const unfoldArticle = () => {
   //   自动展开  关注博主阅读全文
   $("#article_content").attr("style", "height:*px; overflow: auto;")
   $(".hide-article-box").remove()
 }
 
 //  移除重定向
-const removeRedirect = () => {
+export const removeRedirect = () => {
   $("#article_content a").map((_index, item: any) => {
     if (item.origin != window.location.origin) {
       item.onclick = (event: { stopPropagation: () => any }) => {
@@ -66,7 +65,3 @@ const removeRedirect = () => {
     }
   })
 }
-
-permitCopy()
-unfoldArticle()
-removeRedirect()

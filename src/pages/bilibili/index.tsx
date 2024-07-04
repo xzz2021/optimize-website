@@ -1,9 +1,7 @@
 import React from "react"
 
 export default function Bilibili() {
-  const aa = () => {
-    console.log("🚀 ~ file: index.tsx:11 ~ 2222222222222222222:")
-  }
+  const aa = () => {}
   aa()
   return (
     <div>
