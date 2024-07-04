@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react"
 import { Modal } from "antd"
 import emitter from "../utils/eventBus"
 import { Button, Input, Space, Flex, Tag, message } from "antd"
-import { addPlatform, getPlatformNameArr } from "@/utils/platformOperation"
+import { addPlatform, deletePlatform, getPlatformNameArr } from "@/utils/platformOperation"
 import { getPlatformNameTool } from "@/utils/tools"
 const AddPlatform = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const [inputValue, setInputValue] = useState("")
+  const [inputCnNameValue, setInputCnNameValue] = useState("")
 
   const [platformNameArr, setPlatformNameArr] = useState<string[]>([])
 
@@ -29,17 +30,24 @@ const AddPlatform = () => {
     setInputValue(newValue)
   }
 
-  const handleButtonClick = () => {
+  const handleInputChangeCn = (newValue: string) => {
+    setInputCnNameValue(newValue)
+  }
+
+  const addItem = () => {
     const platform = getPlatformNameTool(inputValue)
     if (!platform || platform.length > 12) {
       messageApi.open({ type: "error", content: "平台名称不合法,请重新输入" })
       setInputValue("")
       return
     }
+    if (!platform || !inputCnNameValue) return messageApi.open({ type: "error", content: "输入框不能为空" })
     // 执行添加操作
-    addPlatform(platform)
+    // return
+    addPlatform(platform!, inputCnNameValue)
     // 清空输入框
     setInputValue("")
+    setInputCnNameValue("")
     // location.reload()
   }
   const showModal = () => {
@@ -56,9 +64,9 @@ const AddPlatform = () => {
     setIsModalOpen(false)
   }
 
-  const deletePlatform = async (item: string) => {
-    console.log("🚀 ~ file: addPlatform.tsx:51 ~ item:", item)
+  const deleteItem = async (item: string) => {
     // 删除单个平台
+    deletePlatform(item)
   }
   return (
     <>
@@ -68,7 +76,7 @@ const AddPlatform = () => {
           当前已添加的平台:
           <Flex gap="4px 0" wrap style={{ margin: "10px 0" }}>
             {platformNameArr.map((item, index) => (
-              <Tag bordered={false} key={index} color="success" closable onClose={() => deletePlatform(item)}>
+              <Tag bordered={false} key={index} color="success" closable onClose={() => deleteItem(item)}>
                 {index + 1}: {item}
               </Tag>
             ))}
@@ -81,8 +89,8 @@ const AddPlatform = () => {
             value={inputValue}
             onChange={e => handleInputChange(e.target.value)}
           />
-          <Input placeholder="输入中文名称" />
-          <Button type="primary" onClick={handleButtonClick}>
+          <Input placeholder="输入中文名称" value={inputCnNameValue} onChange={e => handleInputChangeCn(e.target.value)} />
+          <Button type="primary" onClick={addItem}>
             添加
           </Button>
         </Space.Compact>

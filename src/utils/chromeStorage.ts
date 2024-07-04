@@ -23,7 +23,6 @@ export const chromeStorage = {
       }
       if (typeof keys == "string") {
         chrome.storage.local.get(keys, res => {
-          // console.log("🚀 ~ file: chromeStorage.ts:31 ~ res:", res)
           const r = res[keys]
           resolve(r)
         })
@@ -39,9 +38,9 @@ export const chromeStorage = {
       }
     })
   },
-  remove(strORarr: string) {
-    if (strORarr.length > 0) {
-      chrome.storage.local.remove(strORarr)
+  remove(str: string) {
+    if (str.length > 0) {
+      chrome.storage.local.remove(str)
     } else {
       console.log("移除失败:参数必须是字符串或者数组,且不能为空")
     }

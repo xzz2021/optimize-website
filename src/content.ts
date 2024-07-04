@@ -1,10 +1,9 @@
 import { isOpen, getPlatformArr, implementRmNode } from "@/utils/platformOperation"
 import { createRoot } from "react-dom/client"
 import { platFormObj } from "@/pages/index"
-import { chromeStorage } from "./utils/chromeStorage"
 import { removeRedirect } from "./utils/dom"
 import { DEBUG } from "globals"
-import { getPlatformNameTool, sleep } from "@/utils/tools"
+import { getPlatformNameTool } from "@/utils/tools"
 
 const linkArr = ["https://link.zhihu.com/?target=", "https://link.juejin.cn?target=", "https://links.jianshu.com/go?to="]
 
@@ -49,10 +48,5 @@ const createMountPage = (Myapp: () => JSX.Element, id: string) => {
     root.render(Myapp())
   }
 }
-
-const getStorage = async () => {
-  const ee = await chromeStorage.get("platformNameArr")
-}
-// getStorage()
 
 // getPlatformArr()

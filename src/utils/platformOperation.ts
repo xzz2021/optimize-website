@@ -40,30 +40,43 @@ export const getPlatformNameArr = async () => {
 export const getPlatformArr = async () => {
   const platformNameArr = await getPlatformNameArr()
   const rawPlatform = (await chromeStorage.get(platformNameArr)) as platForm[]
-  return rawPlatform
+  return rawPlatform || []
 }
 
 //  获取单个平台
 const getPlatform = async (platform: string) => {
   const rawPlatform: platForm = (await chromeStorage.get(platform)) as platForm
-  return rawPlatform
+  return rawPlatform || {}
 }
 
 /*?
  **
  *添加平台
  */
-export const addPlatform = async (newPlatform: string) => {
-  const rawPlatform: platForm = (await chromeStorage.get(newPlatform)) as platForm
-  if (rawPlatform) return
+export const addPlatform = async (newPlatform: string, cnName: string) => {
+  const existPlatform: platForm = (await chromeStorage.get(newPlatform)) as platForm
+  if (existPlatform) return
   //  先存储当前 平台 详细
-  chromeStorage.set({ newPlatform: { name: newPlatform, rmNode: [], status: true } })
+  chromeStorage.set({ [newPlatform]: { name: cnName, rmNode: [], status: true, key: newPlatform } })
   //  再更新所有平台名称数组
-  const platformNameArr = await getPlatformNameArr()
-  platformNameArr.push(newPlatform)
-  chromeStorage.set(platformNameArr)
+  addPlatformName(newPlatform)
 }
 
+// 新增平台名称时 相应数组添加对应的名称
+const addPlatformName = async (newPlatform: string) => {
+  const platformNameArr = await getPlatformNameArr()
+  const newData = [...platformNameArr, newPlatform]
+  chromeStorage.set({ platformNameArr: newData })
+}
+
+//  删除单个平台
+export const deletePlatform = async (platformName: string) => {
+  // 获取原始 平台数组数据
+  const platformNameArr = await getPlatformNameArr()
+  const newArr = platformNameArr.filter(item => item !== platformName)
+  chromeStorage.set({ platformNameArr: newArr })
+  chromeStorage.remove(platformName)
+}
 //  添加单个节点
 export const addRmNode = async (platform: string, rmNode: string) => {
   const rawPlatform: platForm = await getPlatform(platform)
@@ -81,33 +94,65 @@ export const deleteRmNode = async (platform: string, rmNode: string) => {
   chromeStorage.set({ [platform]: rawPlatform })
 }
 
-const platformMap = {
-  zhihu: { name: "知乎", rmNode: [], status: true },
-  bilibili: { name: "哔哩哔哩", rmNode: [], status: true },
-  csdn: { name: "CSDN", rmNode: [], status: true },
-  juejin: { name: "掘金", rmNode: [], status: true },
-  jianshu: { name: "简书", rmNode: [], status: true },
-}
+const platformMap = [
+  { name: "知乎", rmNode: [], status: true, key: "zhihu" },
+  { name: "哔哩哔哩", rmNode: [], status: true, key: "bilibili" },
+  { name: "CSDN", rmNode: [], status: true, key: "csdn" },
+  { name: "掘金", rmNode: [], status: true, key: "juejin" },
+  { name: "简书", rmNode: [], status: true, key: "jianshu" },
+]
 
 //  初始化 所有平台  节点 信息
 export const initStorage = async () => {
-  const rawPlatformMap = (await chromeStorage.get("platformMap")) || {}
-  const allPlatform = { ...platformMap, ...rawPlatformMap }
-  //   设置所有平台的相关信息
-  chromeStorage.set({ platformMap: allPlatform })
-  // 获取所有平台 英文 名称组成的数组
-  //  ["知乎", "哔哩哔哩", "CSDN", "掘金", "简书"]
-  const platformNameArr = Object.keys(allPlatform).map(item => item)
-  chromeStorage.set({ platformNameArr })
+  let platformNameArr = await getPlatformNameArr()
+  //  如果是[] 则是第一次启动，初始化所有平台信息
+  if (platformNameArr.length) return
+  console.log("🚀 ~ file: platformOperation.ts:112 ~只要初次使用插件才会看到此次初始化提示 platformNameArr:", platformNameArr)
+  platformNameArr = platformMap.map(item => item.key)
+  chromeStorage.set({ platformNameArr: platformNameArr })
+  platformMap.map(async item => {
+    chromeStorage.set({ [item.key]: item })
+  })
 }
 
 //  合并所有平台信息
-export const combineStorage = async (jsonMap: any) => {
-  jsonMap.map(async (item: any) => {
-    const curPlatform = await getPlatform(item.key)
-    curPlatform.rmNode = [...new Set([...curPlatform.rmNode, ...item.rmNode])]
-    chromeStorage.set({ [item.key]: curPlatform })
-  })
+// export const combineStorage = async (jsonMap: any) => {
+//   jsonMap.map(async (item: any) => {
+//     let curPlatform = await getPlatform(item.key)
+//     // if (Object.keys(curPlatform).length === 0) {
+//     if (JSON.stringify(curPlatform) === "{}") {
+//       curPlatform = item
+//       addPlatformName(item.key)
+//     } else {
+//       curPlatform.rmNode = [...new Set([...curPlatform.rmNode, ...item.rmNode])]
+//     }
+//     chromeStorage.set({ [item.key]: curPlatform })
+//   })
+// }
+
+const sortObjectKeys = (obj: platForm) => {
+  const sortedObj = {
+    name: obj.name,
+    rmNode: obj.rmNode,
+    status: obj.status,
+    key: obj.key,
+  }
+  return sortedObj
+}
+
+export const combineStorage = async (jsonMap: platForm[]) => {
+  //  不知道为什么 数组循环后item内部的key顺序 会被改变
+  for (const item of jsonMap) {
+    let curPlatform = await getPlatform(item.key)
+    if (JSON.stringify(curPlatform) === "{}") {
+      // curPlatform = sortObjectKeys(item)
+      curPlatform = item
+      await addPlatformName(item.key)
+    } else {
+      curPlatform.rmNode = [...new Set([...curPlatform.rmNode, ...item.rmNode])]
+    }
+    await chromeStorage.set({ [item.key]: curPlatform })
+  }
 }
 
 export const implementRmNode = async (platform: string) => {
