@@ -10,6 +10,7 @@ const TerserWebpackPlugin = require("terser-webpack-plugin")
 const proconfig = {
   mode: "production",
   optimization: {
+    usedExports: true,
     // 优化配置项  实现前提是 ES Modules-------------需修改babel-loader---------
     //     concatenateModules: true,    // 尽可能合并每一个模块到一个函数中  减少体积和运行效率
     minimizer: [

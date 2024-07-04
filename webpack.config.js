@@ -69,7 +69,11 @@ const comconfig = {
             loader: "babel-loader", //调用babelcore把源代码转换成抽象语法树,解析遍历生成,
             options: {
               cacheDirectory: true,
-              presets: [["@babel/preset-env"], ["@babel/preset-react", { runtime: "automatic" }], "@babel/preset-typescript"],
+              presets: [
+                ["@babel/preset-env", { modules: false }],
+                ["@babel/preset-react", { runtime: "automatic" }],
+                "@babel/preset-typescript",
+              ],
             },
           },
           {

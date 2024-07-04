@@ -28,10 +28,9 @@ html{
 .RichContent-inner{
   -webkit-mask-image: none !important;
   mask-image: none !important;
-  // cursor: text !important;
 }
 .RichContent.is-collapsed{
-  cursor: ;
+  cursor: unset !important;
 }
 .RichContent.is-collapsed .RichContent-inner {
   max-height: initial !important;
@@ -45,7 +44,6 @@ const isExist = (dom: string) => {
   return $(dom).length != 0
 }
 export const removeLogins = () => {
-  console.log("🚀 ~ file: fns.ts:46 ~ 移除知乎登录:")
   // 移除知乎登录
   isExist(".Modal-closeButton") && $(".Modal-closeButton").trigger("click")
   // 宽度由问题页父元素Question-main 决定

@@ -1,4 +1,3 @@
-import { appendStyle } from "@/utils/dom"
 import $ from "jquery"
 import { sleep } from "@/utils/tools"
 export const allowCopy = async () => {
