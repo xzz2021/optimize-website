@@ -9,7 +9,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 const comconfig = {
   entry: {
-    background: "./src/background.tsx",
+    background: "./src/background.ts",
     content: "./src/content.ts",
     inject: "./src/inject.ts",
     popup: "./src/popup/index.tsx",
@@ -69,11 +69,8 @@ const comconfig = {
             loader: "babel-loader", //调用babelcore把源代码转换成抽象语法树,解析遍历生成,
             options: {
               cacheDirectory: true,
-              presets: [
-                ["@babel/preset-env", { modules: false }],
-                ["@babel/preset-react", { runtime: "automatic" }],
-                "@babel/preset-typescript",
-              ],
+              // plugins: [["import", { libraryName: "antd", style: true }]],
+              presets: [["@babel/preset-env"], ["@babel/preset-react", { runtime: "automatic" }], "@babel/preset-typescript"],
             },
           },
           {

@@ -45,6 +45,8 @@ const isExist = (dom: string) => {
 }
 export const removeLogins = () => {
   // 移除知乎登录
+  console.log("🚀 ~ file: fns.ts:56 ~ 移除知乎登录:")
+
   isExist(".Modal-closeButton") && $(".Modal-closeButton").trigger("click")
   // 宽度由问题页父元素Question-main 决定
   isExist(".Question-mainColumn") && $(".Question-mainColumn").css("width", "100%") // 主题内容宽度重置为100%
