@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-
 import { Button, Input, Space, RadioChangeEvent, Radio, Select } from "antd"
 import { addRmNode, getPlatformArr } from "@/utils/platformOperation"
 

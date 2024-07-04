@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Button, Modal } from "antd"
+import { Modal } from "antd"
 import SearchBar from "./search"
 import emitter from "../utils/eventBus"
 const ModalApp: React.FC = () => {

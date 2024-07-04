@@ -1,0 +1,97 @@
+[
+  {
+    "name": "知乎",
+    "rmNode": [
+      ".css-1hwwfws",
+      ".css-1ynzxqw",
+      ".css-woosw9",
+      ".css-i9srcr",
+      ".jyiugjh",
+      ".css-1wq6v87",
+      ".ContentItem-rightButton",
+      ".Pc-word",
+      ".css-1ynzxqw33",
+      ".AppHeader-profile",
+      ".Question-sideColumn",
+      ".ColumnPageHeader-profile",
+      ".css-yoby3j",
+      "#container",
+      ".Modal-wrapper",
+      ".Question-mainColumnLogin",
+      ".FollowButton"
+    ],
+    "status": true,
+    "key": "zhihu"
+  },
+  {
+    "name": "哔哩哔哩",
+    "rmNode": [
+      ".bili-mini-mask",
+      ".login-tip",
+      ".vip-login-tip",
+      ".ad-report.video-card-ad-small",
+      "#bannerAd",
+      ".eva-banner",
+      ".login-limit-mask"
+    ],
+    "status": true,
+    "key": "bilibili"
+  },
+  {
+    "name": "CSDN",
+    "rmNode": [
+      ".tool-active-list",
+      ".passport-container-mini-tip",
+      ".passport-login-container",
+      ".sidetool-writeguide-box",
+      ".passport-login-tip-container",
+      ".programmer1Box",
+      "#recommendAdBox",
+      ".box-shadow.mb8",
+      "#footerRightAds",
+      "#asideNewNps",
+      "#asideNewComments",
+      "#recommendNps",
+      ".recommend-ask-box.has-bg",
+      ".csdn-toolbar-creative-mp",
+      ".write-guide-buttom-box",
+      "#mys-wrapper",
+      "#asideWriteGuide",
+      "#remuneration",
+      ".passport-auto-tip-login-container",
+      "#blogExtensionBox",
+      ".toolbar-advert"
+    ],
+    "status": true,
+    "key": "csdn"
+  },
+  {
+    "name": "掘金",
+    "rmNode": [
+      ".global-component-box",
+      ".login-guide-wrap",
+      ".nav-item.auth",
+      ".bottom-login-guide",
+      ".login-popover",
+      ".special-activity-item",
+      ".article-suspended-panel",
+      ".adverts-list",
+      ".wechat-ad",
+      ".sidebar-block,.banner-block"
+    ],
+    "status": true,
+    "key": "juejin"
+  },
+  {
+    "key": "jianshu",
+    "name": "简书",
+    "rmNode": [
+      "._3Pnjry",
+      "._23ISFX",
+      "._23ISFX-mask",
+      "._13lIbp",
+      ".adad_container"
+    ],
+    "status": true
+  }
+]
