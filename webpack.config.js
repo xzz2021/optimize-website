@@ -64,13 +64,24 @@ const comconfig = {
       {
         oneOf: [
           {
-            test: /\.(js|jsx)$/i,
+            test: /\.(ts|tsx)$/i,
             exclude: /node_modules/,
             loader: "babel-loader", //调用babelcore把源代码转换成抽象语法树,解析遍历生成,
             options: {
               cacheDirectory: true,
               // plugins: [["import", { libraryName: "antd", style: true }]],
-              presets: [["@babel/preset-env"], ["@babel/preset-react", { runtime: "automatic" }], "@babel/preset-typescript"],
+              presets: [
+                [
+                  "@babel/preset-env",
+                  {
+                    targets: {
+                      esmodules: true,
+                    },
+                  },
+                ],
+                ["@babel/preset-react", { runtime: "automatic" }],
+                "@babel/preset-typescript",
+              ],
             },
           },
           {
@@ -78,11 +89,11 @@ const comconfig = {
             type: "asset/inline",
             // use: 'url-loader?limit=16941'
           },
-          {
-            test: /\.(ts|tsx)$/i,
-            exclude: /node_modules/,
-            loader: "ts-loader",
-          },
+          // {
+          //   test: /\.(ts|tsx)$/i,
+          //   exclude: /node_modules/,
+          //   loader: "ts-loader",
+          // },
         ],
       },
     ],

@@ -1,6 +1,6 @@
 // 此文件定义 全平台都会执行的  公共函数
 
-import { removeRedirect } from "@/utils/dom"
+import { removeRedirect } from "@/utils/jquery"
 import { implementRmNode } from "@/utils/platformOperation"
 import { createRoot } from "react-dom/client"
 import { platFormObj } from "@/pages/index"

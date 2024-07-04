@@ -20,6 +20,7 @@ const proconfig = {
         //--------------详细配置----------https://github.com/terser/terser
         extractComments: false, //  不生成LICENSE文件(提取注释)
         // minify: TerserWebpackPlugin.uglifyJsMinify,   //集 JavaScript 解析器，压缩器，美化器于一身
+        parallel: true, // 开启并行压缩
         terserOptions: {
           // minify: {
           // },
