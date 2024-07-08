@@ -9,7 +9,7 @@ export const injectFile = () => {
   ;(document.head || document.documentElement).appendChild(s) // ------document.documentElement----指向html标签
 }
 
-//  b站注入  覆写 原声 定期函数
+//  b站注入  覆写 原生 定期函数
 export const injectForBilibili = async () => {
   //  b站覆写setTimeout
   const originSetTimeout = window.setTimeout

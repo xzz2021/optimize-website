@@ -20,3 +20,13 @@ export const autoHD = async () => {
     }
   }, 1000)
 }
+
+// 自动关闭 弹幕
+export const closeDm = () => {
+  const timer4Btn: NodeJS.Timeout = setInterval(async () => {
+    const hasdm = document.querySelector(".bpx-player-dm-setting.disabled")
+    if (hasdm) return clearInterval(timer4Btn)
+    const trialBtn = document.querySelector(".bui-danmaku-switch-input")
+    trialBtn && trialBtn.click()
+  }, 1000)
+}
