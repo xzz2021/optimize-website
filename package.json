@@ -5,7 +5,7 @@
   "scripts": {
     "start": "webpack server",
     "build": "webpack --env=production --mode=production",
-    "watch": "webpack --watch --mode=development --env=development"
+    "dev": "webpack --watch --mode=development --env=development"
   },
   "keywords": [
     "chrome",

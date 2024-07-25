@@ -25,7 +25,7 @@ const ConfigPanel: React.FC<PropsType> = ({ allPlatform }) => {
     <>
       <div style={{ textAlign: "center", margin: "30px", display: "flex", justifyContent: "space-between", width: "600px" }}>
         <Button type="primary" onClick={() => showModal()}>
-          添加元素
+          添加屏蔽元素
         </Button>
         <Button type="primary" onClick={exportFile}>
           一键导出备份

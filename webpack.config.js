@@ -6,6 +6,7 @@ const { merge } = require("webpack-merge")
 const path = require("path")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+// const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
 
 const comconfig = {
   entry: {
@@ -58,6 +59,7 @@ const comconfig = {
         { from: "public/manifest.json", to: "./manifest.json" },
       ],
     }),
+    // new BundleAnalyzerPlugin(),
   ],
   module: {
     rules: [

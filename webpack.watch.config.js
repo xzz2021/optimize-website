@@ -2,7 +2,6 @@
 
 const { wsAutoReloadPlugin } = require("ws-reload-plugin")
 const webpack = require("webpack")
-const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
 
 const watchconfig = {
   mode: "development",
@@ -13,8 +12,8 @@ const watchconfig = {
     new webpack.DefinePlugin({
       AUTHOR: JSON.stringify("xzz2021"),
       DEBUG: true,
+      __REACT_DEVTOOLS_GLOBAL_HOOK__: { isDisabled: true },
     }),
-    new BundleAnalyzerPlugin(),
   ],
   watchOptions: {
     ignored: /node_modules/,

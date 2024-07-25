@@ -6,7 +6,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 //----------此插件可以清除注释,console,debugger以及指定不需要的内容--------
 const TerserWebpackPlugin = require("terser-webpack-plugin")
-const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
 
 const proconfig = {
   mode: "production",
@@ -52,7 +51,6 @@ const proconfig = {
       AUTHOR: JSON.stringify("xzz2021"),
       DEBUG: false,
     }),
-    new BundleAnalyzerPlugin(),
   ],
   // module: {
   //   rules: [
