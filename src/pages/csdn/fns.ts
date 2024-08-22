@@ -2,7 +2,7 @@ import $ from "jquery"
 import { sleep } from "@/utils/tools"
 export const allowCopy = async () => {
   //   一键复制代码
-  await sleep(1)
+  // await sleep(1)
   $("pre").each(function () {
     //  解除自由复制
     $(this).attr("style", "user-select: auto;")
@@ -36,7 +36,11 @@ export const styleCss = `.hljs-button-xzz{
   border-radius: 4px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.05);
-}`
+}
+  .forbid {
+  -webkit-user-select:  auto !important;
+      user-select: auto !important;
+  }`
 
 export const permitCopy = () => {
   // 解除页面所有复制限制
@@ -51,6 +55,15 @@ export const unfoldArticle = () => {
   //   自动展开  关注博主阅读全文
   $("#article_content").attr("style", "height:*px; overflow: auto;")
   $(".hide-article-box").remove()
+  unfoldCodeBlocks()
+}
+
+const unfoldCodeBlocks = () => {
+  // 自动展开代码块
+  $(".set-code-hide.prettyprint").map((_index, item: any) => {
+    // console.log("🚀 ~ xzz: unfoldCode -> item", item)
+    item.setAttribute("style", "max-height: 9999px; height: auto;")
+  })
 }
 
 //  移除重定向
@@ -63,4 +76,13 @@ export const removeRedirect = () => {
       }
     }
   })
+}
+
+export const autoLoadPage = () => {
+  if (location.host.includes("wenku")) {
+    const articleDom = $(".article-box .cont.first-show.forbid")
+    articleDom && articleDom.attr("class", "oiu")
+    const occlusionDom = $(".article-box .open")
+    occlusionDom && occlusionDom.attr("style", "display: none !important;")
+  }
 }

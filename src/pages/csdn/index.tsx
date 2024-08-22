@@ -1,5 +1,5 @@
 import React from "react"
-import { allowCopy, permitCopy, removeRedirect, styleCss, unfoldArticle } from "./fns"
+import { allowCopy, permitCopy, removeRedirect, styleCss, unfoldArticle, autoLoadPage } from "./fns"
 import { appendStyle } from "@/utils/dom"
 export default function Csdn() {
   allowCopy()
@@ -7,6 +7,7 @@ export default function Csdn() {
   permitCopy()
   unfoldArticle()
   removeRedirect()
+  autoLoadPage()
 
   return (
     <div>

@@ -4,7 +4,12 @@ import { removeRedirect } from "@/utils/jquery"
 import { implementRmNode } from "@/utils/platformOperation"
 import { createRoot } from "react-dom/client"
 import { platFormObj } from "@/pages/index"
-const linkArr = ["https://link.zhihu.com/?target=", "https://link.juejin.cn?target=", "https://links.jianshu.com/go?to="]
+const linkArr = [
+  "https://link.zhihu.com/?target=",
+  "https://link.juejin.cn?target=",
+  "https://link.juejin.cn/?target=",
+  "https://links.jianshu.com/go?to=",
+]
 
 export const commonFn = (platform: string) => {
   //  直接实施 rmNode

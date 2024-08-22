@@ -9,6 +9,9 @@ export const styleCss = `body{
 ._23ISFX-wrap{
   z-index: -22 !important;
 }
+.index .main {
+    width: 100%;
+}
 `
 
 export const beautifyPage = () => {

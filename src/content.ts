@@ -1,6 +1,6 @@
 import { isOpen } from "@/utils/platformOperation"
 import { DEBUG } from "globals"
-import { getPlatformNameTool } from "@/utils/tools"
+import { getPlatformNameTool, sleep } from "@/utils/tools"
 import { commonFn } from "./utils/common"
 import { injectFile } from "./utils/injectFn"
 
@@ -11,6 +11,7 @@ const startGenerate = async () => {
   if (platform) {
     const res = await isOpen(platform)
     if (res) {
+      await sleep(1) // 全局等待  延迟执行   可以防止 函数 在dom渲染前执行
       // 开发模式时  的  自动刷新
       //  检查平台开关是否启用
       if (DEBUG) {
