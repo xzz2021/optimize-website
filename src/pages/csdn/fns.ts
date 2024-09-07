@@ -40,6 +40,10 @@ export const styleCss = `.hljs-button-xzz{
   .forbid {
   -webkit-user-select:  auto !important;
       user-select: auto !important;
+  }
+    *{
+     user-select: auto !important;
+}
   }`
 
 export const permitCopy = () => {
@@ -60,7 +64,7 @@ export const unfoldArticle = () => {
 
 const unfoldCodeBlocks = () => {
   // 自动展开代码块
-  $(".set-code-hide.prettyprint").map((_index, item: any) => {
+  $(".set-code-hide").map((_index, item: any) => {
     // console.log("🚀 ~ xzz: unfoldCode -> item", item)
     item.setAttribute("style", "max-height: 9999px; height: auto;")
   })
