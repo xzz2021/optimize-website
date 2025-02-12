@@ -14,7 +14,7 @@ export const autoHD = async () => {
 
   const timer4Btn = setInterval(async () => {
     const trialBtn = document.querySelector(".bpx-player-toast-confirm-login")
-    if (trialBtn) {
+    if (trialBtn && trialBtn instanceof HTMLElement) {
       clearInterval(timer4Btn)
       trialBtn.click()
     }
@@ -27,6 +27,9 @@ export const closeDm = () => {
     const hasdm = document.querySelector(".bpx-player-dm-setting.disabled")
     if (hasdm) return clearInterval(timer4Btn)
     const trialBtn = document.querySelector(".bui-danmaku-switch-input")
-    trialBtn && trialBtn.click()
+    if (trialBtn && trialBtn instanceof HTMLElement) {
+      clearInterval(timer4Btn)
+      trialBtn.click()
+    }
   }, 1000)
 }

@@ -1,26 +1,37 @@
 import React from "react"
-import Zhihu from "./zhihu"
-import Bilibili from "./bilibili"
-import Csdn from "./csdn"
-import Juejin from "./juejin"
-import JianShu from "./jianshu"
 
-/*
-React的引入 只在jsx文件中  可以解析
-*/
-//  给一个空模版  用于动态 平台 挂载
+// 默认空模板组件用于动态平台挂载
 function Tmp(): React.JSX.Element {
   return <></>
 }
 
+// 使用 require.context 自动导入所有组件
+// @ts-ignore
+const importAll = (r: __WebpackModuleApi.RequireContext) => {
+  const modules: { [key: string]: () => JSX.Element } = {}
+  r.keys().forEach((key: string) => {
+    // 跳过当前文件和非 index 文件
+    if (key === "./index.tsx" || !key.includes("index")) return
+
+    // 从路径中提取平台名称
+    const platformName = key.split("/")[1]
+    const component = r(key).default
+
+    if (component) {
+      modules[platformName] = component
+    }
+  })
+  return modules
+}
+
+// @ts-ignore
+const components = importAll(require.context("./", true, /\.tsx$/))
+
 type PlatFormObj = {
   [key: string]: () => JSX.Element
 }
+
 export const platFormObj: PlatFormObj = {
-  zhihu: Zhihu,
-  bilibili: Bilibili,
-  csdn: Csdn,
-  juejin: Juejin,
-  jianshu: JianShu,
+  ...components,
   tmp: Tmp,
 }

@@ -5,9 +5,5 @@ export default function Juejin() {
   allowCopy()
   appendStyle(styleCss)
 
-  return (
-    <div>
-      <h1>掘金324</h1>
-    </div>
-  )
+  return <div>{/* <h1>掘金324</h1> */}</div>
 }
