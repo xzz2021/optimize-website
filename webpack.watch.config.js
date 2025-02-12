@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const { wsAutoReloadPlugin } = require("ws-reload-plugin")
+const { WsAutoReloadPlugin } = require("ws-reload-plugin")
 const webpack = require("webpack")
 
 const watchconfig = {
   mode: "development",
   devtool: "cheap-module-source-map",
   plugins: [
-    new wsAutoReloadPlugin(),
+    new WsAutoReloadPlugin({
+      entryFiles: { background: "./background.js", content: "./js/content.js" },
+      autoRun: { content: false },
+    }),
     //可以定义全局上下文的变量
     new webpack.DefinePlugin({
       AUTHOR: JSON.stringify("xzz2021"),
