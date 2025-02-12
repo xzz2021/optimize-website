@@ -1,5 +1,6 @@
 import { isOpen } from "@/utils/platformOperation"
 import { getPlatformNameTool } from "@/utils/tools"
+import { DEBUG } from "globals"
 import { commonFn } from "./utils/common"
 import { injectFile } from "./utils/injectFn"
 const startGenerate = async () => {
@@ -9,8 +10,10 @@ const startGenerate = async () => {
   if (platform) {
     const res = await isOpen(platform)
     if (res) {
-      // @ts-ignore
-      createWsConnect()
+      if (DEBUG) {
+        // @ts-ignore
+        createWsConnect()
+      }
       //  各个平台的公共函数
       commonFn(platform)
     }

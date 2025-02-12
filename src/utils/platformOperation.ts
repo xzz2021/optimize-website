@@ -9,7 +9,6 @@ export interface platForm {
   key: string
 }
 
-// 关键信息
 /*
  * 所有平台数据 单独以平台域名为键进行存储
  *
