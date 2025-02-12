@@ -1,5 +1,6 @@
 [
   {
+    "key": "zhihu",
     "name": "知乎",
     "rmNode": [
       ".css-1hwwfws",
@@ -18,12 +19,13 @@
       "#container",
       ".Modal-wrapper",
       ".Question-mainColumnLogin",
-      ".FollowButton"
+      ".FollowButton",
+      ".css-12cv0pi"
     ],
-    "status": true,
-    "key": "zhihu"
+    "status": true
   },
   {
+    "key": "bilibili",
     "name": "哔哩哔哩",
     "rmNode": [
       ".bili-mini-mask",
@@ -34,10 +36,10 @@
       ".eva-banner",
       ".login-limit-mask"
     ],
-    "status": true,
-    "key": "bilibili"
+    "status": true
   },
   {
+    "key": "csdn",
     "name": "CSDN",
     "rmNode": [
       ".tool-active-list",
@@ -60,12 +62,14 @@
       "#remuneration",
       ".passport-auto-tip-login-container",
       "#blogExtensionBox",
-      ".toolbar-advert"
+      ".toolbar-advert",
+      "#articleSearchTip",
+      ".hide-preCode-box"
     ],
-    "status": true,
-    "key": "csdn"
+    "status": true
   },
   {
+    "key": "juejin",
     "name": "掘金",
     "rmNode": [
       ".global-component-box",
@@ -79,8 +83,7 @@
       ".wechat-ad",
       ".sidebar-block,.banner-block"
     ],
-    "status": true,
-    "key": "juejin"
+    "status": true
   },
   {
     "key": "jianshu",
@@ -90,7 +93,10 @@
       "._23ISFX",
       "._23ISFX-mask",
       "._13lIbp",
-      ".adad_container"
+      ".adad_container",
+      ".commonclass",
+      ".container.index .col-xs-7.col-xs-offset-1.aside",
+      "#__next ._3eq_La"
     ],
     "status": true
   }

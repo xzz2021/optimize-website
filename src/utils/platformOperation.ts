@@ -44,7 +44,7 @@ export const getPlatformNameArr = async () => {
 export const getPlatformArr = async () => {
   const platformNameArr = await getPlatformNameArr()
   const rawPlatform = (await chromeStorage.get(platformNameArr)) as platForm[]
-  console.log("🚀 ~ file: platformOperation.ts:43 ~ rawPlatform:", rawPlatform)
+  // console.log("🚀 ~ file: platformOperation.ts:43 ~ rawPlatform:", rawPlatform)
   return rawPlatform || []
 }
 
