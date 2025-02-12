@@ -14,6 +14,8 @@ const AddPlatform = () => {
 
   const [messageApi, contextHolder] = message.useMessage()
 
+  // 内容是否有更新
+  const [hasUpdate, setHasUpdate] = useState(false)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -46,6 +48,7 @@ const AddPlatform = () => {
     // return
     addPlatform(platform!, inputCnNameValue)
     // 清空输入框
+    setHasUpdate(true)
     setInputValue("")
     setInputCnNameValue("")
     // location.reload()
@@ -62,19 +65,22 @@ const AddPlatform = () => {
 
   const handleCancel = () => {
     setIsModalOpen(false)
+    hasUpdate && location.reload()
   }
 
   const deleteItem = async (item: string) => {
+    Notification
     // 删除单个平台
     deletePlatform(item)
+    setHasUpdate(true)
   }
   return (
     <>
       {contextHolder}
-      <Modal title="平台管理" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="平台管理" open={isModalOpen} footer={null} onOk={handleOk} onCancel={handleCancel}>
         <div>
-          当前已添加的平台:
-          <Flex gap="4px 0" wrap style={{ margin: "10px 0" }}>
+          <h4>1. 当前已添加的平台:</h4>
+          <Flex gap="4px 0" wrap>
             {platformNameArr.map((item, index) => (
               <Tag bordered={false} key={index} color="success" closable onClose={() => deleteItem(item)}>
                 {index + 1}: {item}
@@ -82,14 +88,16 @@ const AddPlatform = () => {
             ))}
           </Flex>
         </div>
-        <div>添加示例: bilibili 或 zhihu.cn 或 www.jianshu.com </div>
-        <Space.Compact style={{ width: 400, margin: "10px 0" }}>
-          <Input placeholder="输入平台url链接或英文域名" value={inputValue} onChange={e => handleInputChange(e.target.value)} />
-          <Input placeholder="输入中文名称" value={inputCnNameValue} onChange={e => handleInputChangeCn(e.target.value)} />
-          <Button type="primary" onClick={addItem}>
-            添加
-          </Button>
-        </Space.Compact>
+        <div>
+          <h4>2.添加示例: bilibili 或 zhihu.cn 或 www.jianshu.com </h4>
+          <Space.Compact>
+            <Input placeholder="输入平台url链接或英文域名" value={inputValue} onChange={e => handleInputChange(e.target.value)} />
+            <Input placeholder="输入中文名称" value={inputCnNameValue} onChange={e => handleInputChangeCn(e.target.value)} />
+            <Button type="primary" onClick={addItem}>
+              添加
+            </Button>
+          </Space.Compact>
+        </div>
       </Modal>
     </>
   )
