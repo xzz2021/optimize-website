@@ -36,6 +36,7 @@ const comconfig = {
     extensions: [".tsx", ".ts", ".js"],
     alias: {
       "@": path.resolve(__dirname, "src"),
+      "@public": path.resolve(__dirname, "public"),
     },
   },
   plugins: [

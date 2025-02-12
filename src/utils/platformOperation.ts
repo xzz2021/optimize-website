@@ -1,5 +1,7 @@
 import { chromeStorage } from "./chromeStorage"
 import { rmNode2Style } from "./dom"
+// import DEFAULT_PLATFORM from "../../public/default.json"
+import DEFAULT_PLATFORM from "@public/default.json"
 export interface platForm {
   name: string
   rmNode: string[]
@@ -99,13 +101,13 @@ export const deleteRmNode = async (platform: string, rmNode: string) => {
   chromeStorage.set({ [platform]: rawPlatform })
 }
 
-const platformMap = [
-  { name: "知乎", rmNode: [], status: true, key: "zhihu" },
-  { name: "哔哩哔哩", rmNode: [], status: true, key: "bilibili" },
-  { name: "CSDN", rmNode: [], status: true, key: "csdn" },
-  { name: "掘金", rmNode: [], status: true, key: "juejin" },
-  { name: "简书", rmNode: [], status: true, key: "jianshu" },
-]
+// const platformMap = [
+//   { name: "知乎", rmNode: [], status: true, key: "zhihu" },
+//   { name: "哔哩哔哩", rmNode: [], status: true, key: "bilibili" },
+//   { name: "CSDN", rmNode: [], status: true, key: "csdn" },
+//   { name: "掘金", rmNode: [], status: true, key: "juejin" },
+//   { name: "简书", rmNode: [], status: true, key: "jianshu" },
+// ]
 
 //  初始化 所有平台  节点 信息
 /*#__PURE__*/ export const initStorage = async () => {
@@ -113,9 +115,9 @@ const platformMap = [
   //  如果是[] 则是第一次启动，初始化所有平台信息
   if (platformNameArr.length) return
   console.log("🚀 ~ file: platformOperation.ts:112 ~只要初次使用插件才会看到此次初始化提示 platformNameArr:", platformNameArr)
-  platformNameArr = platformMap.map(item => item.key)
+  platformNameArr = DEFAULT_PLATFORM.map(item => item.key)
   chromeStorage.set({ platformNameArr: platformNameArr })
-  platformMap.map(async item => {
+  DEFAULT_PLATFORM.map(async item => {
     chromeStorage.set({ [item.key]: item })
   })
 }
@@ -139,4 +141,23 @@ export const implementRmNode = async (platform: string) => {
   const rawPlatform: platForm = await getPlatform(platform)
   const rmNode = rawPlatform.rmNode
   rmNode2Style(rmNode)
+}
+
+// 自动添加新键的平台
+export const autoMergePlatform = async (realtimePlatformArr: { comName: string; cnName: string }[]) => {
+  const platformArr = await getPlatformArr()
+  // 双重循环      "key": 对应 comName,  "name": 对应 cnName
+  for (const item of realtimePlatformArr) {
+    const platform = platformArr.find(platform => platform.key === item.comName)
+    if (platform) {
+      platform.name = item.cnName
+    } else {
+      platformArr.push({ key: item.comName, name: item.cnName, rmNode: [], status: true })
+    }
+  }
+  const platformNameArr = platformArr.map(item => item.key)
+  chromeStorage.set({ platformNameArr })
+  platformArr.map(async item => {
+    chromeStorage.set({ [item.key]: item })
+  })
 }

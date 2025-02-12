@@ -6,7 +6,7 @@
 
 3. 考虑到灵活性，目前在options配置页面加入了动态增加平台， 及根据class和id动态屏蔽功能！
 
-4. 同时支持一键导入导出json文件备份恢复数据！且导入会自动增量merge合并原有数据！(初始默认配置文件为目录下的default.json, 需自行导入)
+4. 同时支持一键导入导出json文件备份恢复数据！且导入会自动增量merge合并原有数据！(初始默认配置文件为目录下的default.json, 首次使用会自动导入)
 
 ![设置界面](https://github.com/xzz2021/public/blob/main/github/optimize-website/options1.png?raw=true)
 

@@ -12,8 +12,10 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
-    }
+      "@/*": ["src/*"],
+      "@public/*": ["public/*"]
+    },
+    "resolveJsonModule": true // 启用对 JSON 模块的支持
   },
   "types": ["chrome"],
   "include": ["src/**/*", "**/**/*", "globals.d.ts"],
