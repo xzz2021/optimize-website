@@ -2,7 +2,7 @@ import $ from "jquery"
 import { sleep } from "./tools"
 
 //  https://links.jianshu.com/go?to=https%3A%2F%2Flink.juejin.cn%3Ftarget%3Dhttps%253A%252F%252Fprettier.io%252Fdocs%252Fen%252Finstall.html
-export const removeRedirect = async (linkArr: string[]) => {
+export const removeRedirect00 = async (linkArr: string[]) => {
   await sleep(1)
   $("a").each(function () {
     let rawUrl = $(this).attr("href")
@@ -30,4 +30,25 @@ const fullDecodeURIComponent = (url: string) => {
     decodedUrl = decodeURIComponent(url)
   }
   return decodedUrl
+}
+
+// const linkArr = [
+//   "https://link.zhihu.com/?target=",
+//   "https://link.juejin.cn?target=",
+//   "https://link.juejin.cn/?target=",
+//   "https://links.jianshu.com/go?to=",
+// ]
+const hitStr = ["target=", "go?to="]
+export const removeRedirect = () => {
+  $("a").each(function () {
+    let rawUrl = fullDecodeURIComponent($(this).attr("href")!)
+    // console.log("✨ 🍰 ✨ xzz2021: rawUrl", rawUrl)
+    if (!rawUrl?.includes("https://link.")) return
+    for (let str of hitStr) {
+      if (rawUrl?.includes(str)) {
+        $(this).attr("href", rawUrl.split(str)[1])
+        break
+      }
+    }
+  })
 }

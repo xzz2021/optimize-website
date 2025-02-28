@@ -3,55 +3,57 @@ import { sleep } from "@/utils/tools"
 import $ from "jquery"
 
 export const removeLimit = async () => {
-  await sleep(1)
-  // 解除知乎登录才能查看完整内容的限制
-  $('div[class*="RichContent--unescapable"]').each(function () {
-    // 获取当前元素的所有类名
-    const classNames = $(this).attr("class")!.split(" ")
-    // 过滤出不包含 RichContent--unescapable 的类名
-    const newClassNames = classNames.filter(function (className) {
-      return className !== "RichContent--unescapable"
-    })
-    // 更新元素的类名
-    $(this).attr("class", newClassNames.join(" "))
-  })
-  // 移除max-height限制
+  console.log("✨ 🍰 ✨ xzz2021:=============================removeLimit")
+  $(".Modal-closeButton").length != 0 && $(".Modal-closeButton").trigger("click")
+
+  await sleep(0.1)
+  // // 解除知乎登录才能查看完整内容的限制
+  // $('div[class*="RichContent--unescapable"]').each(function () {
+  //   // 获取当前元素的所有类名
+  //   const classNames = $(this).attr("class")!.split(" ")
+  //   // 过滤出不包含 RichContent--unescapable 的类名
+  //   const newClassNames = classNames.filter(function (className) {
+  //     return className !== "RichContent--unescapable"
+  //   })
+  //   // 更新元素的类名
+  //   $(this).attr("class", newClassNames.join(" "))
+  // })
+  // 自动点击展开所有内容
   $(".RichContent-inner").each(function () {
-    $(this).attr("style", "")
+    $(this).trigger("click")
+    // $(this).attr("style", "")
+  })
+
+  //  移除知乎的直答跳转
+  $(".RichContent-EntityWord").each(function () {
+    //  获取当前元素的文本
+    const text = $(this).text()
+    // 替换当前元素为span
+    $(this).replaceWith(`<span>${text}</span>`)
   })
 }
 
 export const styleCss = `
-html{
-  overflow: auto !important;
+.RichContent.is-collapsed .RichContent-inner:hover {
+  color: black !important;
 }
-.RichContent-inner{
-  -webkit-mask-image: none !important;
-  mask-image: none !important;
+.Modal-wrapper .Modal-inner {
+  display: none !important;
 }
-.RichContent.is-collapsed{
-  cursor: unset !important;
+.Question-mainColumn, .ContentItem-actions .ContentItem-actions {
+  width: 100% !important;
 }
-.RichContent.is-collapsed .RichContent-inner {
-  max-height: initial !important;
+.AuthorInfo {
+  max-width: 1000px !important;
 }
-.RichContent.is-collapsed .CopyrightRichText-richText {
-  pointer-events: auto;
+  
+.Post-NormalMain .Post-Header {
+  width: 1000px !important;
+}
+.Post-NormalMain>div, .Post-NormalSub>div {
+  width: 1000px !important;
+}
+.Post-SideActions {
+  right: calc(40vw - 495px);
 }
 `
-
-const isExist = (dom: string) => {
-  return $(dom).length != 0
-}
-export const removeLogins = () => {
-  // 移除知乎登录
-  console.log("🚀 ~ file: fns.ts:56 ~ 移除知乎登录:")
-
-  isExist(".Modal-closeButton") && $(".Modal-closeButton").trigger("click")
-  // 宽度由问题页父元素Question-main 决定
-  isExist(".Question-mainColumn") && $(".Question-mainColumn").css("width", "100%") // 主题内容宽度重置为100%
-  // 知乎热点页面判断
-  isExist(".Question-main") && isExist(".ContentItem-actions") && $(".ContentItem-actions").css("width", "100%") // 底栏和主题内容同宽
-  isExist(".AuthorInfo") && $(".AuthorInfo").css("max-width", "1000px")
-  // setTimeout(() => checkExistHide('.css-1hwwfws') , 800)  //顶部登录浮窗  出现比较晚,所以需要延迟移除
-}
