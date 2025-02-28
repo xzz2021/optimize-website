@@ -1,7 +1,7 @@
 {
   "name": "xzz-净化",
   "description": "用于屏蔽pc常用网站的登录限制,广告,各种弹窗,解除复制限制,让自己聚焦于信息主体!",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"

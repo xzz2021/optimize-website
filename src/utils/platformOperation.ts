@@ -108,17 +108,25 @@ export const deleteRmNode = async (platform: string, rmNode: string) => {
 //   { name: "简书", rmNode: [], status: true, key: "jianshu" },
 // ]
 
-//  初始化 所有平台  节点 信息
-/*#__PURE__*/ export const initStorage = async () => {
-  let platformNameArr = await getPlatformNameArr()
-  //  如果是[] 则是第一次启动，初始化所有平台信息
-  if (platformNameArr.length) return
-  console.log("🚀 ~ file: platformOperation.ts:112 ~只要初次使用插件才会看到此次初始化提示 platformNameArr:", platformNameArr)
-  platformNameArr = DEFAULT_PLATFORM.map(item => item.key)
-  chromeStorage.set({ platformNameArr: platformNameArr })
-  DEFAULT_PLATFORM.map(async item => {
+const updatePlatformStorage = async (platformArr: { name: string; rmNode: string[]; status: boolean; key: string }[]) => {
+  chromeStorage.set({ platformNameArr: platformArr.map(item => item.key) })
+  platformArr.map(async item => {
     chromeStorage.set({ [item.key]: item })
   })
+}
+
+//  初始化 所有平台  节点 信息
+/*#__PURE__*/ export const initStorage = async () => {
+  const platformNameArr = await getPlatformNameArr()
+  //  如果是[] 则是第一次启动，初始化所有平台信息
+  if (platformNameArr.length) return
+  // console.log("🚀 ~ file: platformOperation.ts:112 ~只要初次使用插件才会看到此次初始化提示 platformNameArr:", platformNameArr)
+  // platformNameArr = DEFAULT_PLATFORM.map(item => item.key)
+  // chromeStorage.set({ platformNameArr: platformNameArr })
+  // DEFAULT_PLATFORM.map(async item => {
+  //   chromeStorage.set({ [item.key]: item })
+  // })
+  updatePlatformStorage(DEFAULT_PLATFORM)
 }
 
 export const combineStorage = async (jsonMap: platForm[]) => {
@@ -154,9 +162,5 @@ export const autoMergePlatform = async (realtimePlatformArr: { comName: string; 
       platformArr.push({ key: item.comName, name: item.cnName, rmNode: [], status: true })
     }
   }
-  const platformNameArr = platformArr.map(item => item.key)
-  chromeStorage.set({ platformNameArr })
-  platformArr.map(async item => {
-    chromeStorage.set({ [item.key]: item })
-  })
+  updatePlatformStorage(platformArr)
 }
