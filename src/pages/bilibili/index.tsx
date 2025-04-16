@@ -1,10 +1,9 @@
 import React from "react"
-import { autoHD, closeDm } from "./fn"
+import { autoHD } from "./fn"
 
 const Bilibili = () => {
   autoHD()
-  closeDm()
-  return <div>{/* <h1>Bilibili</h1> */}</div>
+  return <div></div>
 }
 Bilibili.cnName = "哔哩哔哩"
 export default Bilibili

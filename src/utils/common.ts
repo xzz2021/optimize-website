@@ -19,7 +19,7 @@ export const commonFn = (platform: string) => {
 const createMountPage = (Myapp: () => JSX.Element, id: string) => {
   const el = document.querySelector("body")
   if (el) {
-    el.insertAdjacentHTML("afterbegin", `<div  style="position: fixed;" id="${id}"></div>`)
+    el.insertAdjacentHTML("afterbegin", `<div  style="position: fixed; z-index:999999;" id="${id}"></div>`)
     const root = createRoot(document.getElementById(id)!) // 非空断言
     root.render(Myapp())
   }

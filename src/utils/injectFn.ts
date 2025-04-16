@@ -13,10 +13,11 @@ export const injectFile = () => {
 export const injectForBilibili = async () => {
   //  b站覆写setTimeout
   const originSetTimeout = window.setTimeout
-  window.setTimeout = function (func, delay: number | undefined, ...args: any[]) {
-    if (delay === 4e3) delay = 4e8
-    if (delay === 3e4) delay = 10e10
-    return originSetTimeout.call(this, func, delay)
+  window.setTimeout = function (func: (args: void) => void, delay: number | undefined) {
+    let newdelay = delay
+    // if (delay === 4e3) newdelay = 4e8
+    if (delay === 3e4) newdelay = 10e10
+    return originSetTimeout.call(this, func, newdelay) as NodeJS.Timeout
   }
 
   const originSetItem = window.localStorage.setItem
@@ -24,14 +25,11 @@ export const injectForBilibili = async () => {
     if (key === "bpx_player_profile") {
       const profile = JSON.parse(value)
       // 默认关闭弹幕
-      // const dmStatus = profile.dmSetting.dmSwitch
-      // dmStatus && (profile.dmSetting.dmSwitch = false)
-      // profile.lastView = 0
+      profile.dmSetting.dmSwitch = false
       profile.lastView = Date.now() + 864e10
       // 新增属性变更  解除b站试看一次限制
-      profile.lastUnlogintrialView = Date.now() + 864e10
+      profile.lastUnlogintrialView = Date.now() + 864e10 - 11
       profile.media.quality = "80"
-      // profile.media.autoplay = false;
       value = JSON.stringify(profile)
     }
     originSetItem.call(this, key, value)
