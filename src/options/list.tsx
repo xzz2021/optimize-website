@@ -1,12 +1,19 @@
-import React from "react"
-import { Collapse, Flex, Tag } from "antd"
+import React, { useState, useEffect } from "react"
+import { Collapse, Flex, Tag, Input } from "antd"
 import { deleteRmNode } from "@/utils/platformOperation"
 import { platForm } from "@/utils/platformOperation"
 import IsEnable from "./isEnable"
+import { chromeStorage } from "@/utils/chromeStorage"
 
 interface PropsType {
   allPlatform: platForm[]
 }
+
+const playCountLimit = async () => {
+  const playCountLimit = await chromeStorage.get("playCountLimit") as number ?? 50
+  return playCountLimit
+}
+  
 
 const List: React.FC<PropsType> = ({ allPlatform }) => {
   // const allPlatform = [
@@ -41,6 +48,22 @@ const List: React.FC<PropsType> = ({ allPlatform }) => {
   //     key: "jianshu",
   //   },
   // ]
+
+  const [inputValue, setInputValue] = useState("")
+  const fetchPlayCountLimit = async () => {
+    const playCountLimitValue = await playCountLimit() as number
+    setInputValue(playCountLimitValue.toString())
+  }
+  useEffect(() => { 
+    fetchPlayCountLimit()
+  }, [])
+
+  const handleInputChange = (newValue: string) => {
+    const newInputValue = newValue.replace(/[^0-9]/g, '')
+    setInputValue(newInputValue)
+    chromeStorage.set({playCountLimit: Number(newInputValue)})
+  }
+
   const newData = allPlatform.map(item => {
     const { name, rmNode, key } = item
     const newItem = {
@@ -59,6 +82,11 @@ const List: React.FC<PropsType> = ({ allPlatform }) => {
                 )
               })}
           </Flex>
+          {key === "bilibili" && (
+            <div style={{display: 'flex'}}>
+              <Input placeholder="输入你要高亮播放量的视频数量,单位为万,0为不高亮" value={inputValue} onChange={e => handleInputChange(e.target.value)} />
+            </div>
+          )}
         </>
       ),
     }
