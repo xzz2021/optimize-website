@@ -7,6 +7,9 @@ export const autoHD = async () => {
   // 第一次进入页面 直接执行一次
   clickHD()
 
+  // setTimeout(() => {
+  //   makeVideoFullscreen()
+  // }, 2000)
   //  监听url变化
   checkUrl()
 
@@ -67,7 +70,7 @@ const clickHD = () => {
       }else{
         window.localStorage.clear()
       }
-    }, 1000)
+    }, 3000)
   }
 }
 
@@ -188,4 +191,3 @@ const autoHighLight = async () => {
     }
   })
 }
-

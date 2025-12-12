@@ -10,7 +10,7 @@ const exeFn = async () => {
         if (event.data.type && event.data.type == "check_result") {
           const res = event.data.text
           if (res) {
-            injectForBilibili()
+              injectForBilibili()
           }
         }
       },

@@ -26,7 +26,6 @@ export const injectForBilibili = async () => {
   const originSetInterval = window.setInterval
 
 
-  setTimeout(()=>{
  //  @ts-ignore
     window.setInterval = function (func: (args: void) => void, delay: number | undefined){
       let newdelay = delay || 11111
@@ -34,7 +33,6 @@ export const injectForBilibili = async () => {
 
       return originSetInterval.call(this, func, newdelay) as NodeJS.Timeout
     }
-  }, 6000)
   const originSetItem = window.localStorage.setItem
   window.localStorage.setItem = function (key, value) {
     if (key === "bpx_player_profile") {
